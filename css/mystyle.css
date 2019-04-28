@@ -1,0 +1,90 @@
+.mypic {
+  height: 150px;
+  width: 150px;
+  border-radius: 100%;
+  margin-left:50px;
+}
+
+.resume-head{
+  text-align: center;
+  font-family: 'Fjalla One', sans-serif;
+  font-weight: 700;
+  font-size: 42px;
+  color: #293749;
+}
+
+.resume-head-sub{
+  text-align: center;
+  font-family: 'Fjalla One', sans-serif;
+  font-size: 30px;
+  color: #888888;
+}
+
+.resume-address{
+  font-family: 'Fjalla One', sans-serif;
+  font-size: 14px;
+}
+
+.social-out {
+  padding-top: 20px;
+  padding-left: 140px;
+  padding-bottom: 20px;
+  margin-top: -30px;
+  background-color: #293749;
+  color : #ffffff;
+}
+
+.social-in {
+  padding-left: 140px;
+  background-color: #293749;
+  color : #ffffff;
+  font-size: 18px;
+}
+
+.main-section-left{
+  margin-top: 30px;
+  margin-left: 30px;
+  padding-left: 20px;
+  width: 60%;
+  display: inline-block;
+  float: left;
+}
+
+.main-section-right{
+  margin-top: 30px;
+  margin-left: 30px;
+  padding-left: 20px;
+  width: 30%;
+  display: inline-block;
+  float: right;
+}
+
+.main-section-node{
+  margin-top: 30px;
+  font-family: 'Fjalla One', sans-serif;
+  border-bottom: solid 2px;
+}
+
+.left-bordered {
+  border-left: solid 0.5px;
+}
+
+.main-details {
+  font-family: 'Fjalla One', sans-serif;
+  font-size: 14px;
+}
+
+.main-details:hover {
+  background-color: yellow;
+}
+
+
+.resume-footer {
+  margin-top: 50px;
+  padding: 50px;
+  background-color: #293749;
+  color: white;
+  font-family: 'Fjalla One', sans-serif;
+  text-align: center;
+  display: inline-block;
+}
