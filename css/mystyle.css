@@ -75,9 +75,8 @@
 }
 
 .main-details:hover {
-  background-color: yellow;
+  background-color: silver;
 }
-
 
 .resume-footer {
   margin-top: 50px;
@@ -87,4 +86,8 @@
   font-family: 'Fjalla One', sans-serif;
   text-align: center;
   display: inline-block;
+}
+
+.underline {
+  border-bottom: solid 1px;
 }
