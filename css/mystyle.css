@@ -31,14 +31,15 @@
   margin-top: -30px;
   background-color: #293749;
   color : #ffffff;
-  float: right;
+
 }
 
 .social-in {
+  padding-left: 130px;
   background-color: #293749;
   color : #ffffff;
   font-size: 18px;
-  float: right;
+
 }
 
 .main-section-left{
