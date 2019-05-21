@@ -82,7 +82,7 @@ Freelancer <br> \
 freelance_text_cv = freelance_text_resume +
 "<div class='underline'></div> \
 <li>Worked as a lecturer at Sri Devi Institute of Technology and acquired public speaking skills</li> \
-<li>As full time marketer and developer,</li> \
+<li>As full time marketer, sales and developer,</li> \
 <li>Worked on heart rate variability scanner, building the project from scratch using python</li> \
 <li>Worked on a laboratory report generator, using C# and MS-Word templates</li>\
 <li>Tried to setup my own company from the ground up</li>\
