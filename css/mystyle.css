@@ -92,3 +92,17 @@
 .underline {
   border-bottom: solid 1px;
 }
+
+.skills {
+  font-family: 'Fjalla One', sans-serif;
+}
+
+.sc{
+  width:10px;
+  height:10px;
+  margin-top: 3px;
+  margin-left: 3px;
+  border-radius:50%;
+  background:#293749;
+  float:right;
+}
