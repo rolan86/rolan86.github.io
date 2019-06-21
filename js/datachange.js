@@ -102,6 +102,17 @@ intel_text_cv = intel_text_resume +
 <li>Rebuilt the OEM INF customization tool from scratch using C# as an internal project which saved more than 60% AE time</li> \
 <br>"
 
+interest_text_resume = "Stuff about me trying to startup 3 companies, hover here to know more "
+
+interest_text_cv = "Built 3 stealth mode startups from scratch and learnt quite a bit from every single one.<br>\
+Ardelis Technologies was meant as a service based startup for python development projects.<br>\
+Style Magic was meant as an ecommerce startup for selling affordable ladies garments. <br>\
+Techtrine was meant as a professional educational startup for students and professionals alike.<br>\
+I am always looking to build something new, no matter the difficulty. <br>\
+Building these startups taught me a lot of the skill sets that I already have and I look forward to build some more.<br>\
+Skills that I have built are strategy, hiring, company budgeting, resource allocation, sales and marketing and a lot more,\
+Ask me, and I will be happy to enunciate."
+
 function changeText(changeid)
     {
         var display = document.getElementById(changeid);
@@ -126,6 +137,9 @@ function changeText(changeid)
         }
         if (changeid === "intel") {
           display.innerHTML = intel_text_cv;
+        }
+        if (changeid === "interest") {
+          display.innerHTML = interest_text_cv;
         }
 
     }
@@ -153,5 +167,8 @@ function changeText(changeid)
         }
         if (changeid === "intel") {
           display.innerHTML = intel_text_resume;
+        }
+        if (changeid === "interest") {
+          display.innerHTML = interest_text_resume;
         }
     }
