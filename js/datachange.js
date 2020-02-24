@@ -1,17 +1,23 @@
 smartb_text_resume = "Nov 2018 - Till Date <br> \
-Senior Developer/ IoT Architect/ Product Owner <br> \
+Senior Developer/ IoT Architect/ Agile Coach <br> \
 <strong>smartB Energy Management Gmbh </strong>\
 <br>"
 
 smartb_text_cv = smartb_text_resume +
 "<div class='underline'></div> \
-<li>A liaison between the company and the client and was crucial to building a successful relationship</li> \
+<li>A liaison between the company and the client, was crucial to building a successful relationship</li> \
 <li>Successfully optimized resources, and was part of strategy and thereby helped with billing of projects within the company</li> \
 <li>Successfully architected the infrastructure and applications in various client side and internal projects</li> \
 <li>Optimized the development life cycle internally thereby increasing efficiency and cohesiveness of the team </li> \
 <li>Architecting python based web applications and leading the team to successfully create production ready systems</li> \
 <li>Presenting solutions to clients, and to peers alike on a regular basis</li> \
-<li>Mostly dealing with projects on python, cloud, IoT involving DevOps</li> \
+<li>Post being acquired by Phoenix Contact, continuing to work on architecting of the platform</li> \
+<li>Functioning partly as team agile coach/scrum master and solution architect</li> \
+<li>Involved in mentoring and assisting product owner in road mapping and story mapping processes thereby improving processes</li> \
+<li>Started the process of work system document to improve processes at all levels including organization level, project management, engineering </li> \
+<li>Working hands on for platform development with AWS and python, involved in building CI/CD pipeline</li> \
+<li>Working on infrastructure automation using terraform involving GitOps flow</li> \
+<li>Involved in a fair bit of people management to help de-stress employees</li> \
 <br>"
 
 cisco_text_resume = "Sep 2014 - Oct 2018 <br> \
