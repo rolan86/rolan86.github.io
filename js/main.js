@@ -3,13 +3,6 @@
  * Waitlist form, smooth scrolling, and interactions
  */
 
-// Waitlist count
-let waitlistCount = Math.floor(Math.random() * 20) + 40;
-const countElement = document.querySelector('.count-number');
-if (countElement) {
-    countElement.textContent = waitlistCount;
-}
-
 // Waitlist Form Handler - Formspree AJAX
 const waitlistForm = document.getElementById('waitlist-form');
 const formSuccess = document.getElementById('form-success');
@@ -38,12 +31,6 @@ if (waitlistForm) {
                 // Success - hide form, show success message
                 this.classList.add('hidden');
                 formSuccess.classList.remove('hidden');
-
-                // Increment counter
-                waitlistCount++;
-                if (countElement) {
-                    countElement.textContent = waitlistCount;
-                }
             } else {
                 // Error - show message and re-enable button
                 submitBtn.disabled = false;
