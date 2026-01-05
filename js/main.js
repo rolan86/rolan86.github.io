@@ -3,89 +3,60 @@
  * Waitlist form, smooth scrolling, and interactions
  */
 
-// Waitlist Form Handler
-const waitlistForm = document.getElementById('waitlist-form');
-const formSuccess = document.getElementById('form-success');
-
-// Simulated waitlist count
+// Waitlist count
 let waitlistCount = Math.floor(Math.random() * 20) + 40;
 const countElement = document.querySelector('.count-number');
 if (countElement) {
     countElement.textContent = waitlistCount;
 }
 
+// Waitlist Form Handler - Formspree AJAX
+const waitlistForm = document.getElementById('waitlist-form');
+const formSuccess = document.getElementById('form-success');
+
 if (waitlistForm) {
-    waitlistForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
+    waitlistForm.addEventListener('submit', async function(evt) {
+        evt.preventDefault();
 
-        const email = document.getElementById('email').value;
-
-        // Validate email
-        if (!isValidEmail(email)) {
-            showFormError('Please enter a valid email address');
-            return;
-        }
-
-        // Disable submit button
-        const submitBtn = waitlistForm.querySelector('button[type="submit"]');
+        const formData = new FormData(this);
+        const submitBtn = this.querySelector('button[type="submit"]');
         const originalText = submitBtn.textContent;
+
         submitBtn.disabled = true;
         submitBtn.textContent = 'Joining...';
 
-        try {
-            // TODO: Replace with actual form submission
-            // Options:
-            // 1. ConvertKit Form API
-            // 2. Formspree (https://formspree.io)
-            // 3. Google Sheets via Google Apps Script
-            // 4. Custom backend endpoint
+        const data = new FormData(this);
 
-            // Simulate API call
-            await new Promise(resolve => setTimeout(resolve, 1500));
-
-            // Store locally (remove in production)
-            const submissions = JSON.parse(localStorage.getItem('waitlist') || '[]');
-            submissions.push({ email, timestamp: new Date().toISOString() });
-            localStorage.setItem('waitlist', JSON.stringify(submissions));
-
-            // Increment and update counter
-            waitlistCount++;
-            if (countElement) {
-                countElement.textContent = waitlistCount;
+        fetch(this.action, {
+            method: 'POST',
+            body: data,
+            headers: {
+                'Accept': 'application/json'
             }
+        }).then(response => {
+            if (response.ok) {
+                // Success - hide form, show success message
+                this.classList.add('hidden');
+                formSuccess.classList.remove('hidden');
 
-            // Show success
-            waitlistForm.classList.add('hidden');
-            formSuccess.classList.remove('hidden');
-
-            console.log('Waitlist signup:', { email });
-
-        } catch (error) {
-            console.error('Form submission error:', error);
-            showFormError('Something went wrong. Please try again.');
+                // Increment counter
+                waitlistCount++;
+                if (countElement) {
+                    countElement.textContent = waitlistCount;
+                }
+            } else {
+                // Error - show message and re-enable button
+                submitBtn.disabled = false;
+                submitBtn.textContent = originalText;
+                alert('Something went wrong. Please try again.');
+            }
+        }).catch(error => {
+            // Error - show message and re-enable button
             submitBtn.disabled = false;
             submitBtn.textContent = originalText;
-        }
+            alert('Something went wrong. Please try again.');
+        });
     });
-}
-
-function isValidEmail(email) {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-}
-
-function showFormError(message) {
-    let errorEl = document.querySelector('.form-error');
-    if (!errorEl) {
-        errorEl = document.createElement('p');
-        errorEl.className = 'form-error';
-        errorEl.style.cssText = 'color: #dc2626; font-size: 0.875rem; margin-top: 0.5rem;';
-        waitlistForm.appendChild(errorEl);
-    }
-    errorEl.textContent = message;
-    setTimeout(() => {
-        errorEl.textContent = '';
-    }, 5000);
 }
 
 // Smooth scroll for navigation links
@@ -185,6 +156,6 @@ metrics.forEach(metric => metricObserver.observe(metric));
 
 // Console message for developers
 console.log('%cMerryl D\'Mello', 'font-family: serif; font-size: 24px; color: #c45d08;');
-console.log('%cSenior Automation Consultant', 'font-family: sans-serif; font-size: 14px; color: #1a1f2e;');
-console.log('%c17 years helping companies eliminate repetitive work.', 'font-family: sans-serif; color: #4a5568;');
+console.log('%cProduct Leader & Technical Strategist', 'font-family: sans-serif; font-size: 14px; color: #1a1f2e;');
+console.log('%c18 years bridging product strategy and technical execution.', 'font-family: sans-serif; color: #4a5568;');
 console.log('%cJoin the waitlist to be notified when I launch in April 2026.', 'font-family: sans-serif; color: #94a3b8;');
