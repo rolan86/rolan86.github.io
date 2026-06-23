@@ -31,3 +31,4 @@ npm-debug.log*
 
 # Archived version
 terminal-version/
+.superpowers/

@@ -145,4 +145,4 @@ metrics.forEach(metric => metricObserver.observe(metric));
 console.log('%cMerryl D\'Mello', 'font-family: serif; font-size: 24px; color: #c45d08;');
 console.log('%cProduct Leader & Technical Strategist', 'font-family: sans-serif; font-size: 14px; color: #1a1f2e;');
 console.log('%c18 years bridging product strategy and technical execution.', 'font-family: sans-serif; color: #4a5568;');
-console.log('%cJoin the waitlist to be notified when I launch in April 2026.', 'font-family: sans-serif; color: #94a3b8;');
+console.log('%cJoin the waitlist to be notified when I launch in July 2026.', 'font-family: sans-serif; color: #94a3b8;');
