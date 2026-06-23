@@ -3,7 +3,7 @@
 - Date: 2026-06-23
 - Status: Draft for review
 - Project: rolan86.github.io (serves merryldmello.com via CNAME, GitHub Pages)
-- Owner: Merryl D'Mello
+- Owner: Merryl DMello
 
 ## 1. Summary
 
@@ -27,7 +27,7 @@ Order is top to bottom = scroll order. Oldest work at the top, descending into t
 
 | Beat | Domain world | Camera | On-screen copy | Metric |
 |---|---|---|---|---|
-| 0. Rooftop / Intro | Brief cinematic establishing, legacy skyline at dusk, then talking-video of Merryl | Aerial, tilt down, then cut to talking head | "Merryl D'Mello." / "I turn costly, tangled systems into lean ones." / "18 years bridging product and engineering." | none |
+| 0. Rooftop / Intro | Brief cinematic establishing, legacy skyline at dusk, then talking-video of Merryl | Aerial, tilt down, then cut to talking head | "Merryl DMello." / "I turn costly, tangled systems into lean ones." / "18 years bridging product and engineering." | none |
 | 1. HP (2012-14) | Dim security operations room / datacenter, red alert glow resolving to order | Descend and dolly down the aisle | "HP. Cloud security automation." | minus 90% effort |
 | 2. Rackspace (2014-18) | Vast cloud datacenter hall, endless racks, cold light, scale | Descend, glide the hall | "Rackspace. OpenStack cloud initiative." | Multi-million dollar deal, minus 40% cost |
 | 3. Phoenix Contact + SmartB (2018-23) | Energy control room / industrial grid with live data | Descend, move past live screens | "Phoenix Contact. 3 energy products, idea to market." | minus 30% cost, 50% faster |
@@ -158,7 +158,7 @@ Per-beat prompts (append to the global scaffold):
 
 ### 10.7 Intro script (draft, about 18 seconds)
 
-"I'm Merryl D'Mello. For eighteen years, I have walked into costly, tangled systems and walked out with lean ones. Let me show you a few." (Wording adjustable by Merryl.)
+"I'm Merryl DMello. For eighteen years, I have walked into costly, tangled systems and walked out with lean ones. Let me show you a few." (Wording adjustable by Merryl.)
 
 ## 11. Content reference
 
