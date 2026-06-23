@@ -1,5 +1,5 @@
 /**
- * Merryl D'Mello - Portfolio JavaScript
+ * Merryl DMello - Portfolio JavaScript
  * Waitlist form, smooth scrolling, and interactions
  */
 
