@@ -32,3 +32,6 @@ npm-debug.log*
 # Archived version
 terminal-version/
 .superpowers/
+
+# raw source clips (encoded copies live in assets/video/)
+3d-videos/
