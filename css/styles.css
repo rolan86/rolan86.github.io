@@ -481,6 +481,42 @@ a {
     background: var(--color-accent-light);
 }
 
+/* ---- clickable journey rows: open the matching case panel ----
+   Keep the original row look exactly. A <button> only needs its UA chrome
+   stripped so it matches the surrounding <div> rows; the affordance is the
+   existing :hover (left border -> accent) plus a pointer cursor and a subtle
+   company-name accent on hover. No new borders, fills, or labels. */
+.journey-item--btn {
+    border: 0;
+    border-left: 2px solid var(--color-border);
+    width: 100%;
+    background: none;
+    -webkit-appearance: none;
+    appearance: none;
+    font: inherit;
+}
+
+.journey-item--btn,
+.journey-item--link {
+    color: inherit;
+    text-align: left;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.journey-item--btn:hover .journey-company,
+.journey-item--btn:focus-visible .journey-company,
+.journey-item--link:hover .journey-company,
+.journey-item--link:focus-visible .journey-company {
+    color: var(--color-accent);
+}
+
+.journey-item--btn:focus-visible,
+.journey-item--link:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+}
+
 /* === WORK SECTION === */
 .work {
     padding: var(--space-3xl) var(--space-xl);

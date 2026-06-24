@@ -92,8 +92,36 @@
     font-size: .72rem;
     letter-spacing: .22em;
     text-transform: uppercase;
-    color: var(--c-slate);
+    /* brightened from slate + a soft shadow so the company name reads over the
+       moving footage (visitor feedback: "names hard to see") */
+    color: rgba(248, 247, 244, .92);
+    text-shadow: 0 1px 14px rgba(0, 0, 0, .65);
 }
+
+/* company brand lockup: white logo + kicker, sitting above the beat title */
+.beat-brand {
+    display: flex;
+    align-items: center;
+    gap: .8rem;
+    margin-bottom: .5rem;
+}
+
+.beat-logo {
+    height: clamp(26px, 3.4vw, 36px);
+    width: auto;
+    /* flatten any source logo (red / two-tone / black) to clean white, and
+       lift it off the video with a soft shadow */
+    filter: brightness(0) invert(1) drop-shadow(0 2px 10px rgba(0, 0, 0, .6));
+}
+
+/* HP and Rackspace are compact icons — nudge them up to balance the wordmarks */
+.layer[data-beat="hp"] .beat-logo,
+.layer[data-beat="rackspace"] .beat-logo { height: clamp(30px, 4vw, 42px); }
+
+/* Phoenix Contact is a dense square (icon + two-line wordmark), so it reads
+   small at the wordmark height — give it more size and breathing room */
+.layer[data-beat="phoenix"] .beat-logo { height: clamp(52px, 7vw, 72px); }
+.layer[data-beat="phoenix"] .beat-brand { gap: 1rem; margin-bottom: .7rem; }
 
 .beat-title {
     font-family: var(--font-display, 'Crimson Pro', serif);

@@ -68,7 +68,11 @@
             unlock();
         }
 
-        document.querySelectorAll('.case-open').forEach(btn =>
+        // Any element carrying data-case opens its panel: the in-descent
+        // "View the case +" buttons AND the career-journey rows below. (Close
+        // controls use data-case-close, a different attribute, so they are
+        // not caught here.)
+        document.querySelectorAll('[data-case]').forEach(btn =>
             btn.addEventListener('click', () => open(btn.dataset.case)));
         document.querySelectorAll('[data-case-close]').forEach(el =>
             el.addEventListener('click', close));
@@ -127,8 +131,15 @@
     // the final CTA get extra scroll so the reader has time to absorb them.
     const PER_BEAT_VH = 175;
     const WEIGHTS = layers.map((l, i) => {
+        // The intro is a static title card — give it half a beat of scroll so the
+        // first world (HP's server racks) arrives in ~2 scrolls, not ~4.
+        if (l.classList.contains('layer--intro')) return 0.5;
         if (l.classList.contains('layer--capstone')) return 2.4;
-        if (l.classList.contains('layer--lobby')) return 1.5;
+        // The lobby is the terminal beat and has no video to scrub — its content
+        // is always-on. Keep it short: just enough scroll to let the crossfade
+        // settle, then hand off to the page below. More than this is dead scroll
+        // (CTA pinned, nothing changing) before the descent unpins.
+        if (l.classList.contains('layer--lobby')) return 0.6;
         return 1;
     });
     const TOTAL_W = WEIGHTS.reduce((a, b) => a + b, 0);
