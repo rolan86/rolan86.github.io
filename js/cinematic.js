@@ -5,9 +5,9 @@
  * stacked layers as the user scrolls, scrubbing each world clip's
  * currentTime to the scroll position (the "locomotive" sequence pattern).
  *
- * Mobile / reduced-motion / no-GSAP: falls back to plain stacked sections
- * with muted autoplay loops — the narrative and CTA work fully without the
- * scrub engine (progressive enhancement, per spec section 7).
+ * No-GSAP: falls back to plain stacked sections with muted autoplay loops —
+ * the narrative and CTA work fully without the scrub engine (progressive
+ * enhancement, per spec section 7). Desktop and mobile both run the scrub.
  */
 (function () {
     const descent = document.querySelector('.descent');
@@ -23,10 +23,14 @@
     const railFill = rail && rail.querySelector('.rail-fill');
     const ticks = rail ? Array.from(rail.querySelectorAll('.rail-tick')) : [];
 
-    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const small = window.matchMedia('(max-width: 768px)').matches;
     const hasGSAP = !!(window.gsap && window.ScrollTrigger);
-    const cinematic = hasGSAP && !reduce && !small;
+    // The scrub engine runs on every device that can run it — desktop and
+    // mobile alike. The only thing that forces the static fallback is GSAP not
+    // being present. (We intentionally do not gate on reduced-motion: the
+    // fallback is autoplaying video either way, so it would not give a
+    // motion-sensitive visitor a calmer page — just a different motion.)
+    const cinematic = hasGSAP;
 
     // ---- nav dark/light helper (used by both modes) ----
     function setNavDark(on) {
@@ -106,6 +110,11 @@
     // Cinematic engine
     // ---------------------------------------------------------------
     gsap.registerPlugin(ScrollTrigger);
+    // On phones the URL bar shows/hides as you scroll, which changes the visual
+    // viewport height and would otherwise fire a refresh mid-descent — snapping
+    // the scrub to a recomputed position. ignoreMobileResize tells ScrollTrigger
+    // to skip those address-bar resizes so the descent stays smooth.
+    if (small) ScrollTrigger.config({ ignoreMobileResize: true });
     descent.classList.add('is-cinematic');
     document.body.classList.add('descent-active');
 
