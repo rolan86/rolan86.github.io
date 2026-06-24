@@ -637,9 +637,9 @@
 .case-panel-scrim {
     position: absolute;
     inset: 0;
-    /* only a gentle dim — the glass card itself does the refraction, so the
-       floor stays visible through and around the panel */
-    background: rgba(8, 11, 18, .44);
+    /* dim the backdrop firmly so the glass reads consistently whether the
+       panel opens over a dark floor or the off-white record section */
+    background: rgba(8, 11, 18, .74);
 }
 
 .case-panel-card {
@@ -652,7 +652,7 @@
     color: var(--c-offwhite);
     /* liquid glass: translucent fill + heavy backdrop blur refracts the floor
        behind it; bright 1px edge + inner top highlight read as a real bevel */
-    background: linear-gradient(155deg, rgba(38, 46, 66, .34) 0%, rgba(16, 20, 31, .44) 100%);
+    background: linear-gradient(155deg, rgba(34, 41, 59, .46) 0%, rgba(16, 20, 31, .56) 100%);
     backdrop-filter: blur(22px) saturate(1.7);
     -webkit-backdrop-filter: blur(22px) saturate(1.7);
     border: 1px solid rgba(255, 255, 255, .18);

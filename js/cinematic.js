@@ -113,8 +113,19 @@
     // container has no intrinsic height. Give it scroll room per beat — that is
     // the distance the sticky stage scrubs each clip's camera move through.
     // Larger = slower, more deliberate descent.
+    //
+    // Per-beat WEIGHTS let some beats dwell longer. The REPOSITION capstone and
+    // the final CTA get extra scroll so the reader has time to absorb them.
     const PER_BEAT_VH = 175;
-    descent.style.height = (N * PER_BEAT_VH) + 'vh';
+    const WEIGHTS = layers.map((l, i) => {
+        if (l.classList.contains('layer--capstone')) return 2.4;
+        if (l.classList.contains('layer--lobby')) return 1.5;
+        return 1;
+    });
+    const TOTAL_W = WEIGHTS.reduce((a, b) => a + b, 0);
+    const CUM = []; // cumulative weight at the start of each beat
+    WEIGHTS.reduce((acc, w, i) => { CUM[i] = acc; return acc + w; }, 0);
+    descent.style.height = Math.round(TOTAL_W * PER_BEAT_VH) + 'vh';
 
     videos.forEach(v => {
         if (!v) return;
@@ -162,9 +173,14 @@
     }
 
     function render(p) {
-        const fp = Math.min(Math.max(p, 0) * N, N - 1e-4);
-        const idx = Math.min(Math.floor(fp), N - 1);
-        const frac = fp - idx;
+        // Map scroll progress through the weighted beats: find which beat the
+        // weighted position lands in, and the local 0..1 fraction within it.
+        const wp = Math.min(Math.max(p, 0), 1) * TOTAL_W;
+        let idx = N - 1;
+        for (let i = 0; i < N; i++) {
+            if (wp < CUM[i] + WEIGHTS[i] || i === N - 1) { idx = i; break; }
+        }
+        const frac = Math.min((wp - CUM[idx]) / WEIGHTS[idx], 1 - 1e-4);
 
         for (let i = 0; i < N; i++) {
             let o = 0;
@@ -191,7 +207,9 @@
         // once the clip has resolved toward light. Hold it visible while it
         // cross-fades out into the invitation (idx past the capstone).
         if (capstoneInner) {
-            const co = idx < capstoneIdx ? 0 : (idx === capstoneIdx ? smooth(frac, 0.42, 0.82) : 1);
+            // Fade in early (by ~halfway) so REPOSITION holds fully visible
+            // through the long middle of the beat before the CTA cross-fade.
+            const co = idx < capstoneIdx ? 0 : (idx === capstoneIdx ? smooth(frac, 0.18, 0.46) : 1);
             capstoneInner.style.opacity = co.toFixed(3);
         }
 
