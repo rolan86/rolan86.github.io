@@ -163,21 +163,57 @@
         v.load();
     });
 
-    // Map each active video's currentTime DIRECTLY to its scroll target. The
-    // clips are all-intra (every frame seekable), so a direct seek lands an
-    // exact frame — no easing needed, and the full clip duration spans the full
-    // floor of scroll. A rAF loop applies the latest target once per frame so
-    // rapid scroll events don't stack seeks. Threshold ~half a frame at 24fps.
+    // Map each active video's currentTime to its scroll target. The clips are
+    // all-intra (every frame seekable), so a direct seek lands an exact frame.
+    //
+    // currentTime seeking is DECODE-BOUND: assign it faster than the decoder can
+    // present a frame and the browser coalesces the seeks, painting only a subset
+    // — the "frame-skipping" seen on desktop, where bursty wheel/trackpad input
+    // demands the highest seek rate against heavy all-intra clips. So we GATE each
+    // video: at most one seek per *presented* frame, using requestVideoFrameCallback
+    // to learn when a seek has actually painted. This caps seeks at the decoder's
+    // true throughput and always chases the latest target — smooth catch-up
+    // instead of dropped frames. (Mobile never hit this: inertial scroll advances
+    // the clip slowly enough that the ungated loop already stayed under the ceiling.)
     const targetT = new Map();
-    function rafLoop() {
-        targetT.forEach((t, v) => {
-            if (v.readyState >= 1 && isFinite(v.duration) && v.duration > 0) {
-                if (Math.abs(v.currentTime - t) > 1 / 48) v.currentTime = t;
+    const EPS = 1 / 48; // ~half a frame at 24fps; ignore sub-frame deltas
+    const seekable = v => v.readyState >= 1 && isFinite(v.duration) && v.duration > 0;
+    const hasRVFC = 'requestVideoFrameCallback' in HTMLVideoElement.prototype;
+
+    let setTarget;
+    if (hasRVFC) {
+        // Per-video pump: seek toward the latest target, then wait for the frame to
+        // present (or a 250ms watchdog, in case a callback is dropped) before
+        // seeking again. Self-paced to the decoder; idles when within EPS of target
+        // and is re-kicked by setTarget when render() moves the target.
+        const pumping = new Set();
+        const pump = v => {
+            const t = targetT.get(v);
+            if (t == null || !seekable(v) || Math.abs(v.currentTime - t) <= EPS) {
+                pumping.delete(v);
+                return;
             }
-        });
+            v.currentTime = t;
+            let advanced = false;
+            const next = () => { if (advanced) return; advanced = true; clearTimeout(wd); pump(v); };
+            const wd = setTimeout(next, 250);
+            v.requestVideoFrameCallback(next);
+        };
+        setTarget = (v, t) => {
+            targetT.set(v, t);
+            if (!pumping.has(v)) { pumping.add(v); pump(v); }
+        };
+    } else {
+        // Fallback (no rVFC, e.g. older Firefox): the original per-frame loop.
+        const rafLoop = () => {
+            targetT.forEach((t, v) => {
+                if (seekable(v) && Math.abs(v.currentTime - t) > EPS) v.currentTime = t;
+            });
+            requestAnimationFrame(rafLoop);
+        };
         requestAnimationFrame(rafLoop);
+        setTarget = (v, t) => targetT.set(v, t);
     }
-    requestAnimationFrame(rafLoop);
 
     const FADE = 0.82;     // each beat starts cross-fading to the next at 82%
     let activeIdx = -1;
@@ -220,7 +256,7 @@
             const v = videos[i];
             if (!v || !isFinite(v.duration) || v.duration <= 0) continue;
             const lf = i === idx ? frac : 0;
-            targetT.set(v, lf * v.duration);
+            setTarget(v, lf * v.duration);
         }
 
         // Fade the REPOSITION capstone in over the second half of its beat,
